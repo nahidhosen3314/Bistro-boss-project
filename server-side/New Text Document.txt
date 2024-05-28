@@ -1,0 +1,5 @@
+---- I have installed ----
+1. npm install express
+2. npm install cors
+3. npm install mongodb
+4. npm i dotenv

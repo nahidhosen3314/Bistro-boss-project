@@ -1,0 +1,156 @@
+@import url("https://fonts.googleapis.com/css2?family=Work+Sans:ital,wght@0,100..900;1,100..900&display=swap");
+
+@import url("https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+    body {
+        @apply text-paragraph font-primary;
+    }
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+        @apply font-bold text-heading font-secondary;
+    }
+    h1 {
+        @apply text-5xl;
+    }
+    h2 {
+        @apply text-4xl;
+    }
+    h3 {
+        @apply text-3xl;
+    }
+    h4 {
+        @apply text-2xl;
+    }
+    h5 {
+        @apply text-xl;
+    }
+    h6 {
+        @apply text-lg;
+    }
+    p {
+        @apply text-base leading-6 text-paragraph;
+    }
+    input,
+    textarea {
+        @apply w-full text-base py-4 px-4 rounded-xl outline-none focus-visible:outline-none bg-white;
+    }
+    a {
+        @apply inline-block;
+    }
+    label {
+        @apply w-full;
+    }
+    li {
+        @apply text-sm leading-6 text-paragraph cursor-pointer;
+    }
+}
+
+@layer components {
+    button {
+        @apply px-4 py-2 duration-300 hover:shadow-lg transition-all bg-primary text-white rounded-md text-lg font-semibold inline-block;
+    }
+    .tw-btn {
+        @apply px-2  py-2 rounded-sm text-base inline-block;
+    }
+    .tw-btn-primary {
+        @apply text-white bg-primary hover:shadow-lg;
+    }
+    .tw-btn-secondary {
+        @apply text-white bg-secondary;
+    }
+}
+
+.footer-sec li a {
+    @apply hover:text-primary inline-block mb-2 text-white/90 hover:underline;
+}
+.footer-sec p {
+    @apply text-white/90 text-base mb-3;
+}
+
+.slick-dots {
+    @apply !mb-14;
+}
+
+.slick-slider.slick-initialized {
+    overflow: hidden !important;
+}
+
+.menu a.active {
+    @apply !bg-primary !text-black;
+}
+
+/* responsive-carousel slider for banner */
+
+.carousel .control-dots {
+    @apply !mb-10;
+}
+.carousel .control-arrow {
+    @apply !hidden;
+}
+
+.carousel .carousel-status {
+    @apply !hidden;
+}
+
+.carousel .control-dots .selected {
+    @apply !bg-[#007AFF];
+}
+
+.carousel .control-dots .dot {
+    @apply !h-3 !w-3;
+}
+
+/* Swip slider for category*/
+.swiper-pagination {
+    @apply !static !mt-10;
+}
+
+.swiper-pagination-bullet {
+    @apply !h-3 !w-3;
+}
+
+.swiper-button-prev::after,
+.swiper-button-next::after {
+    @apply !text-2xl;
+}
+
+/* food tabs */
+.react-tabs__tab-list {
+    @apply !text-center !border-b-transparent !mb-9;
+}
+
+.react-tabs__tab--selected {
+    @apply !text-secondary !bg-transparent !font-bold !text-xl !uppercase;
+}
+
+.react-tabs__tab {
+    @apply !text-xl !uppercase !border-none;
+}
+
+.react-tabs__tab--selected {
+    border-bottom: 2px solid #D99904 !important;
+}
+
+/* pagenations */
+
+.swiper-pagination-bullet {
+    @apply !h-6 !w-6;
+}
+
+.swiper-pagination-bullet-active {
+	margin: 0 8px !important;
+    @apply !bg-secondary !h-6 !w-6 !text-white
+}
+
+.swiper-pagination {
+    @apply !mb-8
+}

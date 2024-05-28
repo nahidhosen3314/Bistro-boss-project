@@ -1,0 +1,98 @@
+[
+    {
+        "id": "23459sdkflkero3i423894urodfj",
+        "title": "Luxury Condos Riverside",
+        "featured": true,
+        "image": "https://i.ibb.co/QbrJMcG/5.png",
+        "price": "$2356",
+        "location": "2305 Frog Lane Overlandpk, MO 66210",
+        "description": "Luxury Condos Riverside offers a bespoke living experience along the tranquil banks of a scenic river, where modern elegance meets natural beauty. Nestled within an exclusive enclave, these luxurious condominiums redefine upscale urban living, boasting a blend of sophisticated design, unparalleled amenities, and breathtaking views.",
+        "status": "Sale",
+        "area": "2000 sq ft",
+        "facilities": [
+            {"swimming_pool": true},
+            {"bed_room": 5},
+            {"bath": 3}
+        ]
+    },
+    {
+        "id": "98345lsdfjwroie98345kljflksdf",
+        "title": "Downtown Loft Apartment",
+        "featured": true,
+        "image": "https://i.ibb.co/dBDw6VB/p2.jpg",
+        "price": "$1800",
+        "location": "123 Main St, Anytown, USA",
+        "description": "A cozy loft apartment in the heart of downtown. Close to all amenities and public transportation.",
+        "status": "Rent",
+        "area": "1200 sq ft",
+        "facilities": [
+            {"swimming_pool": false},
+            {"bed_room": 4},
+            {"bath": 2}
+        ]
+    },
+    {
+        "id": "fdk3490w94kjfsdlkf032490w9fskdlf",
+        "title": "Oceanfront Villa",
+        "featured": true,
+        "image": "https://i.ibb.co/7KTdTTf/p3.jpg",
+        "price": "$5000",
+        "location": "456 Ocean Drive, Miami, FL",
+        "description": "Experience luxury living in this beautiful oceanfront villa. Perfect for vacations or as a permanent residence.",
+        "status": "Rent",
+        "area": "3500 sq ft",
+        "facilities": [
+            {"swimming_pool": false},
+            {"bed_room": 5},
+            {"bath": 3}
+        ]
+    },
+    {
+        "id": "fjdk34908u3094jfsd0fu23094urds",
+        "title": "Cozy Suburban House",
+        "featured": false,
+        "image": "https://i.ibb.co/9TBLmzN/p4.jpg",
+        "price": "$1500",
+        "location": "789 Oak Street, Suburbia, CA",
+        "description": "A charming suburban house with a spacious backyard. Perfect for families.",
+        "status": "Sale",
+        "area": "1800 sq ft",
+        "facilities": [
+            {"swimming_pool": true},
+            {"bed_room": 5},
+            {"bath": 3}
+        ]
+    },
+    {
+        "id": "lsdkfj34u9rtjklsdfjlskdjf09234",
+        "title": "Mountain Retreat Cabin",
+        "featured": false,
+        "image": "https://i.ibb.co/Gt70PFt/house5.jpg",
+        "price": "$1200",
+        "location": "123 Mountain View Dr, Boulder, CO",
+        "description": "Escape to nature in this cozy cabin nestled in the mountains. Perfect for outdoor enthusiasts.",
+        "status": "Rent",
+        "area": "1000 sq ft",
+        "facilities": [
+            {"swimming_pool": true},
+            {"bed_room": 3},
+            {"bath": 2}
+        ]
+    },
+    {
+        "id": "0934jsdfkljsd0349ujfksdflkj3209",
+        "title": "City Center Penthouse",
+        "featured": false,
+        "image": "https://i.ibb.co/B35fXGC/house6.jpg",
+        "price": "$3500",
+        "location": "789 Highrise Ave, Metropolis, NY",
+        "description": "Live in luxury in this stunning penthouse apartment located in the heart of the city.",
+        "status": "Sale",
+        "area": "2500 sq ft",
+        "facilities": [
+            {"swimming_pool": true},
+            {"bed_room": 5},
+            {"bath": 3}
+        ]
+    }
+]
