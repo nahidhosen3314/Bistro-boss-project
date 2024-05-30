@@ -50,12 +50,12 @@ const Register = () => {
                 // create user entry in the database
 
                 axiosPublic.post("/users", userInfo).then((res) => {
-                    console.log('user added to the database');
                     if (res.data.insertedId) {
                         toast.success("User created successfully!");
                         setLoading(false);
                         reset();
                     }
+                    console.log("user added to the database", res.data);
                 });
             })
             .catch((error) => {

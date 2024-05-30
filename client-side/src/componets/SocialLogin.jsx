@@ -4,38 +4,43 @@ import { FcGoogle } from "react-icons/fc";
 import { AuthContext } from "../Provider/AuthProvider";
 import toast from "react-hot-toast";
 import { useLocation, useNavigate } from "react-router-dom";
-
+import useAxiosPublic from "../hooks/useAxiosPublic";
 
 const SocialLogin = () => {
+    const { singInWithGoogle, singInWithGithub } = useContext(AuthContext);
+    const navigate = useNavigate();
+    const location = useLocation();
+    const axiosPublic = useAxiosPublic();
 
-    const {singInWithGoogle, singInWithGithub} = useContext(AuthContext);
-    const navigate = useNavigate()
-    const location = useLocation()
-
-    const handelGoogleLogin = () =>{
+    const handelGoogleLogin = () => {
         singInWithGoogle()
-            .then(result =>{
-                console.log(result.user)
-                toast.success("User Logged in Successfully!")
-                navigate(location.state ? location.state : "/");
+            .then((result) => {
+                const userInfo = {
+                    email: result.user?.email,
+                    name: result.user?.displayName,
+                };
+                axiosPublic.post("/users", userInfo).then((res) => {
+                    console.log("social loging",res.data);
+                    toast.success("User Logged in Successfully!");
+                    navigate(location.state ? location.state : "/");
+                });
             })
-            .catch((error) =>{
-                toast.error(error.message)
-            })
-    }
+            .catch((error) => {
+                toast.error(error.message);
+            });
+    };
 
-    const handelGithubLogin = () =>{
+    const handelGithubLogin = () => {
         singInWithGithub()
-            .then(result =>{
-                console.log(result.user)
-                toast.success("User Logged in Successfully!")
+            .then((result) => {
+                console.log(result.user);
+                toast.success("User Logged in Successfully!");
                 navigate(location.state ? location.state : "/");
             })
-            .catch((error) =>{
-                toast.error(error.message)
-            })
-    }
-     
+            .catch((error) => {
+                toast.error(error.message);
+            });
+    };
 
     return (
         <div className="max-w-md mx-auto flex flex-col gap-3">
@@ -44,14 +49,18 @@ const SocialLogin = () => {
                 className="flex items-center bg-white gap-2 border border-gray-300 rounded-full p-1 w-full text-center hover:bg-gray-50 duration-200"
             >
                 <FcGoogle className="text-4xl" />
-                <span className="flex-1 text-heading text-base font-normal">Continue with Google</span>
+                <span className="flex-1 text-heading text-base font-normal">
+                    Continue with Google
+                </span>
             </button>
             <button
                 onClick={handelGithubLogin}
                 className="flex items-center bg-white gap-2 border border-gray-300 rounded-full p-1.5 w-full text-center hover:bg-gray-50 duration-200"
             >
                 <FaGithub className="text-3xl text-heading"></FaGithub>
-                <span className="flex-1 text-heading text-base font-normal">Continue with Github</span>
+                <span className="flex-1 text-heading text-base font-normal">
+                    Continue with Github
+                </span>
             </button>
         </div>
     );

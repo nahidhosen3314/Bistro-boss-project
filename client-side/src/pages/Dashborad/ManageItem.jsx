@@ -1,20 +1,17 @@
-import { FaTrashAlt } from "react-icons/fa";
+import { FaRegEdit, FaTrashAlt } from "react-icons/fa";
 import SectionTitle from "../../componets/SectionTitle";
-import useCart from "../../hooks/useCart";
+import useMenu from "../../hooks/UseHook";
 import Swal from "sweetalert2";
 import useAxioaSecure from "../../hooks/useAxioaSecure";
+import { Link } from "react-router-dom";
 
-const Cart = () => {
-    const [cart, refetch] = useCart();
-    const totalPrice = cart.reduce(
-        (prev, currentItem) => prev + currentItem.price,
-        0
-    );
-    const formattedTotalPrice = totalPrice.toFixed(2);
-
+const ManageItem = () => {
+    const [menu, refetch] = useMenu();
     const axiosSecure = useAxioaSecure();
 
-    const handelDelate = (id) => {
+    // console.log("all menus", menu);
+
+    const handelDelate = (item) => {
         Swal.fire({
             title: "Are you sure?",
             text: "You won't be able to revert this!",
@@ -23,19 +20,20 @@ const Cart = () => {
             confirmButtonColor: "#3085d6",
             cancelButtonColor: "#d33",
             confirmButtonText: "Yes, delete it!",
-        }).then((result) => {
+        }).then(async (result) => {
             if (result.isConfirmed) {
-                axiosSecure.delete(`/carts/${id}`).then((res) => {
-                    if (res.data.deletedCount > 0) {
-                        Swal.fire({
-                            title: "Deleted!",
-                            text: "Your file has been deleted.",
-                            icon: "success",
-                        });
-                        refetch();
-                    }
-
-                });
+                const res = await axiosSecure.delete(`/menu/${item._id}`);
+                // console.log("Manage menu", res.data);
+                if (res.data.deletedCount > 0) {
+                    Swal.fire({
+                        position: "top-end",
+                        icon: "success",
+                        title:  `${item.name} has been saved`,
+                        showConfirmButton: false,
+                        timer: 2000
+                      });
+                      refetch();
+                }
             }
         });
     };
@@ -43,14 +41,12 @@ const Cart = () => {
     return (
         <div className="py-16">
             <SectionTitle
-                subHading={"My cart"}
-                heading={"WANNA ADD MORE?"}
+                subHading={"Hurry Up!"}
+                heading={"MANAGE ALL ITEMS"}
             ></SectionTitle>
             <div className="bg-white p-8">
-                <div className="flex justify-between mb-3">
-                    <h4>Items: {cart.length}</h4>
-                    <h4>Total Price: ${formattedTotalPrice}</h4>
-                    <button className="bg-secondary">pay</button>
+                <div className="mb-3">
+                    <h4>Total items: {menu.length}</h4>
                 </div>
                 <div className="">
                     <div className="overflow-x-auto">
@@ -62,33 +58,45 @@ const Cart = () => {
                                     <th>Item Image</th>
                                     <th>Item Name</th>
                                     <th>Price</th>
-                                    <th>Actions</th>
+                                    <th>Update</th>
+                                    <th>Delete</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 {/* row 1 */}
-                                {cart.map((user, index) => (
-                                    <tr key={user._id}>
+                                {menu.map((item, index) => (
+                                    <tr key={item._id}>
                                         <th>{index + 1}</th>
                                         <td>
-                                            <div className="flex items-center gap-3">
-                                                <div className="avatar">
-                                                    <div className="mask mask-squircle w-12 h-12">
-                                                        <img src={user.image} />
-                                                    </div>
+                                            <div className="avatar">
+                                                <div className="mask mask-squircle w-12 h-12">
+                                                    <img src={item.image} />
                                                 </div>
                                             </div>
                                         </td>
                                         <td>
                                             <span className="badge badge-ghost badge-sm">
-                                                {user.name}
+                                                {item.name}
                                             </span>
                                         </td>
-                                        <td>${user.price}</td>
+                                        <td>
+                                            <span className="badge badge-ghost badge-sm">
+                                                {item.price}
+                                            </span>
+                                        </td>
+                                        <td>
+                                            <Link to={`/dashboard/updateItem/${item._id}`}>
+                                                <button
+                                                    className="btn btn-ghost"
+                                                >
+                                                    <FaRegEdit className="text-secondary text-lg" />
+                                                </button>
+                                            </Link>
+                                        </td>
                                         <th>
                                             <button
                                                 onClick={() =>
-                                                    handelDelate(user._id)
+                                                    handelDelate(item)
                                                 }
                                                 className="btn btn-ghost"
                                             >
@@ -106,4 +114,4 @@ const Cart = () => {
     );
 };
 
-export default Cart;
+export default ManageItem;

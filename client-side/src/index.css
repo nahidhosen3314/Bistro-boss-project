@@ -40,8 +40,8 @@
         @apply text-base leading-6 text-paragraph;
     }
     input,
-    textarea {
-        @apply w-full text-base py-4 px-4 rounded-xl outline-none focus-visible:outline-none bg-white;
+    textarea,select {
+        @apply w-full text-base py-3 px-3 rounded-xl outline-none focus-visible:outline-none bg-white;
     }
     a {
         @apply inline-block;

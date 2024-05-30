@@ -1,20 +1,36 @@
-import { FaTrashAlt } from "react-icons/fa";
+import { useQuery } from "@tanstack/react-query";
 import SectionTitle from "../../componets/SectionTitle";
-import useCart from "../../hooks/useCart";
-import Swal from "sweetalert2";
 import useAxioaSecure from "../../hooks/useAxioaSecure";
+import { FaTrashAlt, FaUsers } from "react-icons/fa";
+import Swal from "sweetalert2";
 
-const Cart = () => {
-    const [cart, refetch] = useCart();
-    const totalPrice = cart.reduce(
-        (prev, currentItem) => prev + currentItem.price,
-        0
-    );
-    const formattedTotalPrice = totalPrice.toFixed(2);
-
+const AllUsers = () => {
     const axiosSecure = useAxioaSecure();
+    const { data: users = [], refetch } = useQuery({
+        queryKey: ["users"],
+        queryFn: async () => {
+            const res = await axiosSecure.get("/users");
+            return res.data;
+        },
+    });
 
-    const handelDelate = (id) => {
+    const handelMakeAdmin = (user) => {
+        axiosSecure.patch(`/users/admin/${user._id}`).then((res) => {
+            console.log(res.data);
+            if (res.data.modifiedCount > 0) {
+                refetch();
+                Swal.fire({
+                    position: "top-end",
+                    icon: "success",
+                    title: `<b>${user.name}</b> is an Admin Now!`,
+                    showConfirmButton: false,
+                    timer: 1500,
+                });
+            }
+        });
+    };
+
+    const handelDelate = (user) => {
         Swal.fire({
             title: "Are you sure?",
             text: "You won't be able to revert this!",
@@ -25,7 +41,7 @@ const Cart = () => {
             confirmButtonText: "Yes, delete it!",
         }).then((result) => {
             if (result.isConfirmed) {
-                axiosSecure.delete(`/carts/${id}`).then((res) => {
+                axiosSecure.delete(`/users/${user._id}`).then((res) => {
                     if (res.data.deletedCount > 0) {
                         Swal.fire({
                             title: "Deleted!",
@@ -34,23 +50,20 @@ const Cart = () => {
                         });
                         refetch();
                     }
-
                 });
             }
         });
     };
 
     return (
-        <div className="py-16">
+        <div className="py-16 ">
             <SectionTitle
                 subHading={"My cart"}
                 heading={"WANNA ADD MORE?"}
             ></SectionTitle>
             <div className="bg-white p-8">
-                <div className="flex justify-between mb-3">
-                    <h4>Items: {cart.length}</h4>
-                    <h4>Total Price: ${formattedTotalPrice}</h4>
-                    <button className="bg-secondary">pay</button>
+                <div className="mb-3">
+                    <h4>Total Users : {users.length}</h4>
                 </div>
                 <div className="">
                     <div className="overflow-x-auto">
@@ -59,36 +72,43 @@ const Cart = () => {
                             <thead className="bg-secondary rounded-tr-full text-white">
                                 <tr>
                                     <th>Nunber</th>
-                                    <th>Item Image</th>
-                                    <th>Item Name</th>
-                                    <th>Price</th>
+                                    <th>Name</th>
+                                    <th>Email</th>
+                                    <th>Role</th>
                                     <th>Actions</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 {/* row 1 */}
-                                {cart.map((user, index) => (
+                                {users.map((user, index) => (
                                     <tr key={user._id}>
                                         <th>{index + 1}</th>
                                         <td>
-                                            <div className="flex items-center gap-3">
-                                                <div className="avatar">
-                                                    <div className="mask mask-squircle w-12 h-12">
-                                                        <img src={user.image} />
-                                                    </div>
-                                                </div>
-                                            </div>
+                                            <div className="">{user.name}</div>
                                         </td>
                                         <td>
                                             <span className="badge badge-ghost badge-sm">
-                                                {user.name}
+                                                {user.email}
                                             </span>
                                         </td>
-                                        <td>${user.price}</td>
+                                        <td>
+                                            {user.role === "admin" ? (
+                                                "Admin"
+                                            ) : (
+                                                <button
+                                                    onClick={() =>
+                                                        handelMakeAdmin(user)
+                                                    }
+                                                    className="btn btn-ghost"
+                                                >
+                                                    <FaUsers className="text-secondary text-lg" />
+                                                </button>
+                                            )}
+                                        </td>
                                         <th>
                                             <button
                                                 onClick={() =>
-                                                    handelDelate(user._id)
+                                                    handelDelate(user)
                                                 }
                                                 className="btn btn-ghost"
                                             >
@@ -106,4 +126,4 @@ const Cart = () => {
     );
 };
 
-export default Cart;
+export default AllUsers;

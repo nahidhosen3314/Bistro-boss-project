@@ -45,14 +45,14 @@ const Navbar = () => {
                     <li>
                         <NavLink to="/update">Update Profile</NavLink>
                     </li>
-                    <li>
+                    {/* <li>
                         <NavLink to="/add-tourist-sport">
                             Add Tourist Sport
                         </NavLink>
                     </li>
                     <li>
                         <NavLink to={`/my-list/${user.email}`}>My List</NavLink>
-                    </li>
+                    </li> */}
                 </>
             )}
         </>
